@@ -1,9 +1,15 @@
-const parse = require('csv-parse');
 const fs = require('fs');
+const csv = require('csv-parser');
 
 const results = [];
 
 fs.createReadStream('kepler_data.csv')
+  .pipe(
+    csv({
+      comment: '#',
+      headers: true,
+    })
+  )
   .on('data', (data) => {
     results.push(data);
   })
